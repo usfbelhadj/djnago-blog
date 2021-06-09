@@ -1,0 +1,99 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- ***** About Area Starts ***** -->
+<section class="section" id="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="left-text-content">
+                    <div class="section-heading">
+                        <h2>Blogs</h2>
+                        <h6>We are here for you.</h6>
+                    </div>
+                </div>
+            </div>
+            {% for blog in blogs %}
+            <div class="col-xl-12 col-md-6 col-xs-12 blog">
+                <div class="right-text-content">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal{{blog.id}}">
+                        <h2 class="sub-heading">{{blog.title|title}}</h2>
+                    </button>
+                    <!-- Modal -->
+
+                    <div class="modal fade align-self-end mr-3 " id="myModal{{blog.id}}" tabindex="1" role="dialog"
+                        aria-hidden="true">
+
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="float-left"> <br><br><br><br>
+                                        {{blog.created_at}}
+
+                                    </h6>
+                                    <h5 class="modal-title">{{blog.title|title}} </h5>
+
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{blog.img.url}}" alt="" width="300">
+                                    <br>
+                                    {{blog.content|linebreaks}}
+                                </div>
+                                <div class="modal-footer">
+                                    <h5>Created by {{blog.name}}</h5>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <p>
+                        <a rel="nofollow noopener" href="{{blog.name_url}}" target="_parent">{{blog.name}}</a>
+                        <br>
+                        <a href="{{blog.name_url}}"><img src="{{blog.img.url}}" alt="" width="600"></a>
+                        <br>
+                        {{blog.content|linebreaks}}
+                    </p>
+                    {{blog.created_at}}
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+<!-- ***** About Area Ends ***** -->
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+</script>
+
+<style>
+    .blog {
+        margin-top: 1rem;
+        border: 1px solid #CCCCCC;
+    }
+
+    .modal {
+        margin-top: 4.5rem;
+        z-index: 10;
+    }
+
+    .button {
+
+        background-color: red;
+    }
+</style>
+
+
+{% endblock content %}
